@@ -9,7 +9,7 @@ int main(int argc, char** argv)
     for(std::string line; std::getline(std::cin, line);)
     {
       std::vector<std::string> v = split(line, '\t');
-      ip_pool.push_back(split(v.at(0), '.'));
+      ip_pool.push_back(ip_vector_to_tuple(split(v.at(0), '.')));
     }
 
     // TODO reverse lexicographically sort
