@@ -83,6 +83,8 @@ void filter_by_first_byte_and_output(const ip_pool_t& ip_pool, const std::string
       std::cout << a[0] << "." << a[1] << "." << a[2] << "." << a[3] << std::endl;
       return true;
     }
+    else
+      return false;
   });
 }
 
@@ -94,6 +96,8 @@ void filter_by_first_and_second_bytes_and_output(const ip_pool_t& ip_pool, const
       std::cout << a[0] << "." << a[1] << "." << a[2] << "." << a[3] << std::endl;
       return true;
     }
+    else
+      return false;
   });
 }
 
@@ -105,5 +109,7 @@ void filter_by_any_byte_and_output(const ip_pool_t& ip_pool, const std::string& 
       std::cout << a[0] << "." << a[1] << "." << a[2] << "." << a[3] << std::endl;
       return true;
     }
+    else
+      return false;
   });
 }
