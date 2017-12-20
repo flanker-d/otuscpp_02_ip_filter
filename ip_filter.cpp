@@ -74,3 +74,36 @@ void reverse_lexicographically_sort(ip_pool_t &ip_pool)
       return false;
   });
 }
+
+void filter_by_first_byte_and_output(const ip_pool_t& ip_pool, const std::string& first)
+{
+  std::count_if(ip_pool.begin(), ip_pool.end(), [first](auto a){
+    if(a[0] == first)
+    {
+      std::cout << a[0] << "." << a[1] << "." << a[2] << "." << a[3] << std::endl;
+      return true;
+    }
+  });
+}
+
+void filter_by_first_and_second_bytes_and_output(const ip_pool_t& ip_pool, const std::string& first, const std::string& second)
+{
+  std::count_if(ip_pool.begin(), ip_pool.end(), [first, second](auto a){
+    if((a[0] == first) && (a[1] == second))
+    {
+      std::cout << a[0] << "." << a[1] << "." << a[2] << "." << a[3] << std::endl;
+      return true;
+    }
+  });
+}
+
+void filter_by_any_byte_and_output(const ip_pool_t& ip_pool, const std::string& any)
+{
+  std::count_if(ip_pool.begin(), ip_pool.end(), [any](auto a){
+    if((a[0] == any) || (a[1] == any) || (a[2] == any) || (a[3] == any))
+    {
+      std::cout << a[0] << "." << a[1] << "." << a[2] << "." << a[3] << std::endl;
+      return true;
+    }
+  });
+}
