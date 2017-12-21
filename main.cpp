@@ -1,12 +1,47 @@
+//#define LOCAL_TEST 1
+
+#ifdef LOCAL_TEST
+  #include <sstream>
+#endif
+
 #include "ip_filter.h"
 
 int main(int argc, char** argv)
 {
   try
   {
+#ifdef LOCAL_TEST
+    std::stringstream test_stream;
+
+    test_stream
+    << "113.162.145.156\t111\t0\n"
+    << "157.39.22.224\t5\t6\n"
+    << "79.180.73.190\t2\t1\n"
+    << "179.210.145.4\t22\t0\n"
+    << "219.102.120.135\t486\t0\n"
+    << "67.232.81.208\t1\t0\n"
+    << "85.254.10.197\t0\t7\n"
+    << "23.240.215.189\t6\t0\n"
+    << "1.29.168.152\t17\t0\n"
+    << "185.69.186.168\t1\t3\n"
+    << "110.152.103.161\t0\t1\n"
+    << "185.182.81.131\t1\t1\n"
+    << "68.45.152.8\t2\t0\n"
+    << "114.221.179.117\t0\t1\n"
+    << "185.89.100.249\t752\t0\n"
+    << "46.70.113.73\t1\t0\n"
+    << "188.68.0.38\t1\t0\n"
+    << "119.42.115.97\t11\t0\n"
+    << "194.106.108.214\t0\t3\n"
+    << "24.210.239.177\t1\t0";
+#endif
     ip_pool_t ip_pool;
 
+#ifdef LOCAL_TEST
+    for(std::string line; std::getline(test_stream, line);)
+#else
     for(std::string line; std::getline(std::cin, line);)
+#endif
     {
       std::vector<std::string> v = split(line, '\t');
       ip_pool.push_back(split(v.at(0), '.'));
