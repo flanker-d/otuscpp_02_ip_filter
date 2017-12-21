@@ -12,7 +12,12 @@ add_executable(ip_filter_tests ip_filter_tests.cpp)
 
 add_library(ipfilter ip_filter.cpp)
 
-set_target_properties(ip_filter ipfilter ip_filter_tests PROPERTIES
+add_executable(make_ip_string_tests make_ip_string_tests.cpp)
+
+add_library(makeipstring make_ip_string.cpp)
+
+
+set_target_properties(ip_filter ipfilter ip_filter_tests makeipstring make_ip_string_tests PROPERTIES
   CXX_STANDARD 14
   CXX_STANDARD_REQUIRED ON
   COMPILE_OPTIONS -Wpedantic -Wall -Wextra
@@ -25,12 +30,23 @@ set_target_properties(ip_filter_tests PROPERTIES
 
 target_link_libraries(ip_filter
   ipfilter
+  makeipstring
   pthread
 )
 
 target_link_libraries(ip_filter_tests
   ${Boost_LIBRARIES}
   ipfilter
+)
+
+set_target_properties(make_ip_string_tests PROPERTIES
+  COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
+  INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
+)
+
+target_link_libraries(make_ip_string_tests
+  ${Boost_LIBRARIES}
+  makeipstring
 )
 
 install(TARGETS ip_filter RUNTIME DESTINATION bin)
@@ -48,3 +64,4 @@ include(CPack)
 enable_testing()
 
 add_test(ip_filter_tests ip_filter_tests)
+add_test(make_ip_string_tests make_ip_string_tests)

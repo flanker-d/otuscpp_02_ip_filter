@@ -1,5 +1,6 @@
 #include "ip_filter.h"
 #include "version.h"
+#include "make_ip_string.h"
 
 #include <algorithm>
 #include <sstream>
@@ -35,9 +36,7 @@ ip_t make_ip_from_str_vect(std::vector<std::string> v)
 
 std::string get_ip_string(const ip_t& ip)
 {
-  std::stringstream ss;
-  ss << std::get<0>(ip) << "." << std::get<1>(ip) << "." << std::get<2>(ip) << "." << std::get<3>(ip);
-  return ss.str();
+  return make_ip_string(ip);
 }
 
 void print_ip_pool(ip_pool_t& ip_pool)
