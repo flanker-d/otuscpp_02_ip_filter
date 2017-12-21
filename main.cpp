@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 #endif
     {
       std::vector<std::string> v = split(line, '\t');
-      ip_pool.push_back(split(v.at(0), '.'));
+      ip_pool.push_back(make_ip_from_str_vect(split(v.at(0), '.')));
     }
 
     // TODO reverse lexicographically sort
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 
     // TODO filter by first byte and output
     // ip = filter(1)
-    filter_by_first_byte_and_output(ip_pool, "1");
+    filter_by_first_byte_and_output(ip_pool, 1);
 
     // 1.231.69.33
     // 1.87.203.225
@@ -72,7 +72,7 @@ int main(int argc, char** argv)
 
     // TODO filter by first and second bytes and output
     // ip = filter(46, 70)
-    filter_by_first_and_second_bytes_and_output(ip_pool, "46", "70");
+    filter_by_first_and_second_bytes_and_output(ip_pool, 46, 70);
 
     // 46.70.225.39
     // 46.70.147.26
@@ -81,7 +81,7 @@ int main(int argc, char** argv)
 
     // TODO filter by any byte and output
     // ip = filter_any(46)
-    filter_by_any_byte_and_output(ip_pool, "46");
+    filter_by_any_byte_and_output(ip_pool, 46);
 
     // 186.204.34.46
     // 186.46.222.194

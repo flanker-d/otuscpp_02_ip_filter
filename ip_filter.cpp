@@ -28,10 +28,15 @@ std::vector<std::string> split(const std::string& str, char d)
   return r;
 }
 
+ip_t make_ip_from_str_vect(std::vector<std::string> v)
+{
+  return std::make_tuple(std::stoi(v[0]), std::stoi(v[1]), std::stoi(v[2]), std::stoi(v[3]));
+}
+
 std::string get_ip_string(const ip_t& ip)
 {
   std::stringstream ss;
-  ss << ip[0] << "." << ip[1] << "." << ip[2] << "." << ip[3];
+  ss << std::get<0>(ip) << "." << std::get<1>(ip) << "." << std::get<2>(ip) << "." << std::get<3>(ip);
   return ss.str();
 }
 
@@ -43,63 +48,38 @@ void print_ip_pool(ip_pool_t& ip_pool)
 
 void reverse_lexicographically_sort(ip_pool_t& ip_pool)
 {
-  std::sort(ip_pool.begin(), ip_pool.end(), [](const auto& a, const auto& b){
-    if(std::stoi(a[0]) > std::stoi(b[0]))
-      return true;
-    else if(a[0] == b[0])
-    {
-      if(std::stoi(a[1]) > std::stoi(b[1]))
-        return true;
-      else if(a[1] == b[1])
-      {
-        if(std::stoi(a[2]) > std::stoi(b[2]))
-          return true;
-        else if(a[2] == b[2])
-        {
-          if(std::stoi(a[3]) > std::stoi(b[3]))
-            return true;
-          else
-            return false;
-        }
-        return false;
-      }
-      else
-        return false;
-    }
-    else
-      return false;
+  std::sort(ip_pool.begin(), ip_pool.end(), [](auto& a, auto& b){
+    return a > b;
   });
 }
 
-void filter_by_first_byte_and_output(const ip_pool_t& ip_pool, const std::string& first)
+void filter_by_first_byte_and_output(const ip_pool_t& ip_pool, const int& first)
 {
   std::count_if(ip_pool.begin(), ip_pool.end(), [first](const auto& a){
-    bool ret = (a[0] == first);
+    bool ret = (std::get<0>(a) == first);
     if(ret)
       std::cout << get_ip_string(a) << std::endl;
     return ret;
   });
 }
 
-void filter_by_first_and_second_bytes_and_output(const ip_pool_t& ip_pool, const std::string& first, const std::string& second)
+void filter_by_first_and_second_bytes_and_output(const ip_pool_t& ip_pool, const int &first, const int &second)
 {
   std::count_if(ip_pool.begin(), ip_pool.end(), [first, second](const auto& a){
-    bool ret = ((a[0] == first) && (a[1] == second));
+    bool ret = ((std::get<0>(a) == first) && (std::get<1>(a) == second));
     if(ret)
       std::cout << get_ip_string(a) << std::endl;
     return ret;
   });
 }
 
-void filter_by_any_byte_and_output(const ip_pool_t& ip_pool, const std::string& any)
+void filter_by_any_byte_and_output(const ip_pool_t& ip_pool, const int& any)
 {
   std::count_if(ip_pool.begin(), ip_pool.end(), [any](const auto& a) {
-    auto found = std::find_if(a.begin(), a.end(), [any, a](const auto& b) {
-      bool ret = (b == any);
-      if(ret)
-        std::cout << get_ip_string(a) << std::endl;
-      return ret;
-    });
-    return (found != a.end());
+    bool ret = ((std::get<0>(a) == any) || (std::get<1>(a) == any) || (std::get<2>(a) == any) || (std::get<3>(a) == any));
+    if(ret)
+      std::cout << get_ip_string(a) << std::endl;
+    return ret;
   });
 }
+
