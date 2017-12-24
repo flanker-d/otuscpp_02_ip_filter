@@ -12,7 +12,8 @@ template<std::size_t... Is>
 struct gen_seq<0, Is...> : seq<Is...>{};
 
 template<typename Ch, typename Tr, typename Tuple, std::size_t... Is>
-void print_tuple(std::basic_ostream<Ch,Tr>& os, Tuple const& t, seq<Is...>){
+void print_tuple(std::basic_ostream<Ch,Tr>& os, Tuple const& t, seq<Is...>)
+{
   using swallow = int[];
   (void)swallow{0, (void(os << (Is == 0? "" : ".") << std::get<Is>(t)), 0)...};
 }

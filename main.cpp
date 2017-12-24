@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 
     // TODO filter by first byte and output
     // ip = filter(1)
-    filter_by_first_byte_and_output(ip_pool, 1);
+    filter_by_octets_and_output(ip_pool, 1);
 
     // 1.231.69.33
     // 1.87.203.225
@@ -72,7 +72,7 @@ int main(int argc, char** argv)
 
     // TODO filter by first and second bytes and output
     // ip = filter(46, 70)
-    filter_by_first_and_second_bytes_and_output(ip_pool, 46, 70);
+    filter_by_octets_and_output(ip_pool, 46, 70);
 
     // 46.70.225.39
     // 46.70.147.26

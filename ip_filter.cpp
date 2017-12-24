@@ -52,33 +52,13 @@ void reverse_lexicographically_sort(ip_pool_t& ip_pool)
   });
 }
 
-void filter_by_first_byte_and_output(const ip_pool_t& ip_pool, const int& first)
-{
-  std::count_if(ip_pool.begin(), ip_pool.end(), [first](const auto& a){
-    bool ret = (std::get<0>(a) == first);
-    if(ret)
-      std::cout << get_ip_string(a) << std::endl;
-    return ret;
-  });
-}
-
-void filter_by_first_and_second_bytes_and_output(const ip_pool_t& ip_pool, const int &first, const int &second)
-{
-  std::count_if(ip_pool.begin(), ip_pool.end(), [first, second](const auto& a){
-    bool ret = ((std::get<0>(a) == first) && (std::get<1>(a) == second));
-    if(ret)
-      std::cout << get_ip_string(a) << std::endl;
-    return ret;
-  });
-}
-
 void filter_by_any_byte_and_output(const ip_pool_t& ip_pool, const int& any)
 {
-  std::count_if(ip_pool.begin(), ip_pool.end(), [any](const auto& a) {
-    bool ret = ((std::get<0>(a) == any) || (std::get<1>(a) == any) || (std::get<2>(a) == any) || (std::get<3>(a) == any));
+  for(const auto& ip : ip_pool)
+  {
+    bool ret = ((std::get<0>(ip) == any) || (std::get<1>(ip) == any) || (std::get<2>(ip) == any) || (std::get<3>(ip) == any));
     if(ret)
-      std::cout << get_ip_string(a) << std::endl;
-    return ret;
-  });
+      std::cout << get_ip_string(ip) << std::endl;
+  }
 }
 
