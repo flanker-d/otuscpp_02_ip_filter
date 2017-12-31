@@ -37,7 +37,7 @@ void filter_by_octets_and_output(const ip_pool_t &ip_pool, int first, Args ...ar
   for(const ip_t& ip : ip_pool)
   {
     std::tie(octets_array[0], octets_array[1], octets_array[2], octets_array[3]) = ip;
-    bool ret = iterate(&octets_array[0], first, args...);
+    bool ret = iterate(std::begin(octets_array), first, args...);
     if(ret)
       std::cout << get_ip_string(ip) << std::endl;
   }

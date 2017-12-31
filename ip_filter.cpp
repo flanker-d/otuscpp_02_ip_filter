@@ -47,9 +47,7 @@ void print_ip_pool(ip_pool_t& ip_pool)
 
 void reverse_lexicographically_sort(ip_pool_t& ip_pool)
 {
-  std::sort(ip_pool.begin(), ip_pool.end(), [](auto& a, auto& b){
-    return a > b;
-  });
+  std::sort(ip_pool.begin(), ip_pool.end(), std::greater<ip_t>());
 }
 
 void filter_by_any_byte_and_output(const ip_pool_t& ip_pool, const int& any)
